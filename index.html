@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+
+<link rel="stylesheet" href="css/jQueryHover3d.css">
+
+</head>
+
+<body>
+	<div class="site-content">
+		<div class="columns">
+			<div class="column">
+				<h3>A demo of simple hover effect by CSS transform</h3>
+				<div class="project-list">
+					<div class="project">
+						<div class="project__card">
+							<a href="" class="project__image"><img src="https://www.jquery-az.com/jquery/images/mango.jpg" ></a>
+							<div class="project__detail">
+								<h2 class="project__title"><a href="#">The Mango</a></h2>
+								<small class="project__category"><a href="#">Awesome Fruit</a></small>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+	</div>
+
+
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+	<script src="js/jquery.hover3d.js" ></script>
+
+	<script>
+		$(document).ready(function(){
+			$(".project").hover3d({
+				selector: ".project__card",
+				shine: false,
+			});
+		});
+
+	</script>
+</body>
+
+</html>
+
