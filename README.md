@@ -17,4 +17,17 @@ LiriBot uses several APIs:
    
 ## Inquirer Guide
 
+Inquirer enables liribot to function like a regular menu system. It can look up concert dates for various artists:
 ![](./gifs/concert-this.gif)
+
+It can read the commands off random.txt. This one says *movie-this There Will Be Blood*.
+![](.gifs/do-what-it-says.gif)
+
+You can use inquirer to do movie-this instead.
+![](./gifs/movie-this.gif)
+
+You can look up songs on spotify and return spotify links to tracks.
+![](./spotify-this-song.gif)
+
+You can also type in any commands you want without using inquirer like this. 
+![](./gifs/spotify-this-process-argv.gif)
