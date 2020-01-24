@@ -1,22 +1,23 @@
 require("dotenv").config();
 
-const keys = require("./keys.js");
-const request = require("request-promise");
-const moment = require("moment");
-const Spotify = require("node-spotify-api");
-const spotify = new Spotify(keys.spotify);
-const axios = require("axios");
 const fs = require("fs");
+const keys = require("./keys.js");
+const axios = require("axios");
+const moment = require("moment");
+const request = require("request-promise");
+const Spotify = require("node-spotify-api");
 const inquirer = require("inquirer");
+const spotify = new Spotify(keys.spotify);
 
 const callback = {
     'Concert This': async function (artist) {
         const query = `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`;
         const body = await request(query);
         const json = JSON.parse(body);
+
         console.log(`Concert Results: ${json.length}`);
         json.forEach((concert, index) => {
-            let {venue: {name, city, country}, datetime} = concert;
+             {venue: {name, city, country}, datetime} = concert;
             [   `${index + 1}.)`,
                 `Venue Name : ${name}`,
                 `Location : ${city}, ${country}`,
@@ -29,15 +30,17 @@ const callback = {
     'Spotify This Song': async function (songName) {
         const query = {type: 'track', query: songName};
         const {tracks: {items}} = await spotify.search(query);
+
         console.log(`Searching for the song "${songName}" in Spotify...`);
         console.log(`Spotify Results:  ${items.length}`);
+
         items.forEach((song, index) => {
-            let {album, name, preview_url} = song;
+            const {album: {artists: [{name: Artist}], name: Album}, name : Song, preview_url: Preview} = song;
             [   `${index + 1}.)`,
-                `Artist: ${album.artists[0].name}`,
-                `Song Title: ${name}`,
-                `Preview URL: ${preview_url ? preview_url : "No preview available for this song"}`,
-                `Album Title: ${album.name}`,
+                `Artist: ${Artist}`,
+                `Song Title: ${Song}`,
+                `Preview URL: ${Preview ? Preview : "No preview available for this song"}`,
+                `Album Title: ${Album}`,
                 `----------------------------------------------`
             ].forEach(line => console.log(line));
         });
@@ -61,11 +64,12 @@ const callback = {
         goLiriBot();
     },
     'Do What It Says': async function () {
-        let data = await fs.promises.readFile('random.txt', 'utf8');
-        let [choice, ...searchText] = data.split(' ');
+        const data = await fs.promises.readFile('random.txt', 'utf8');
+        const [choice, ...searchText] = data.split(' ');
         goLiriBot(choice, searchText);
     }
 };
+
 const prompts = {
     choice: {
         message: `What would you like to do?`,
